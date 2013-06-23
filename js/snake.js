@@ -1,5 +1,5 @@
 /* Constants */
-var gameSpeed = 1000; // the game state is updated every this value ms
+var gameSpeed = 60; // the game state is updated every this value ms
 var snakeInitLength = 5; // initial size of the snake
 var boardWidth = 50;  // the size of the board is fixed. We adapt
 var boardHeight = 30; // the size of the cells when drawing it.
