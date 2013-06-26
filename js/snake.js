@@ -153,7 +153,6 @@ function getCursorPosition(e) {
     var ny = (snake[0].y+0.5)*h; 
     var dx = x - nx;
     var dy = y - ny;
-    console.log("n=("+nx+", "+ny+"), c=("+x+", "+y+"), d=("+dx+", "+dy+")");
 
     if (dir == "up" || dir == "down") {
         if (dx < 0) dir = "left";
@@ -162,44 +161,6 @@ function getCursorPosition(e) {
         if (dy > 0) dir = "down";
         else dir = "up";
     }
-
-/*
-    if (dx >= 0 && dy >= 0) {
-        if (dx >= dy) {
-            dir2 = "right";
-        } else {
-            dir2 = "down";
-        }
-    } else if (dx >=0 && dy < 0) {
-        if (dx >= -dy) {
-            dir2 = "right";
-        } else {
-            dir2 = "up";
-        }
-    } else if (dx < 0 && dy <= 0) {
-        if (-dx >= dy) {
-            dir2 = "left";
-        } else {
-            dir2 = "down";
-        }
-    } else if (dx < 0 && dy < 0) {
-        if (-dx >= -dy) {
-            dir2 = "left";
-        } else {
-            dir2 = "up";
-        }
-    }
-
-    //FIXME Problem with this method: if there is less space on one side (e.g., above < below), then we cannot move in this direction (e.g., we cannot go up).
-
-    // check if the movement is possible
-    if (dir2 == "top" && snake[1].y >= snake[0].y) dir = dir2; 
-    else if (dir2 == "down" && snake[1].y <= snake[0].y) dir = dir2; 
-    else if (dir2 == "left" && snake[1].x >= snake[0].x) dir = dir2; 
-    else if (dir2 == "right" && snake[1].x <= snake[0].x) dir = dir2; 
-
-    console.log("dir2=" + dir2 + ", dir=" + dir);
-*/
 }
 
 
