@@ -1,5 +1,5 @@
 /* Constants */
-var gameSpeed = 60; // the game state is updated every this value ms
+var gameSpeed = 100; // the game state is updated every this value ms
 var snakeInitLength = 5; // initial size of the snake
 var boardWidth = 50;  // the size of the board is fixed. We adapt
 var boardHeight = 30; // the size of the cells when drawing it.
@@ -104,7 +104,7 @@ function advanceGame() {
     console.log("Snake.length="+snake.length);
 
     //check lose condition: hit an edge or eat itself
-    if (nx < 0 || nx >= boardWidth || ny < 0 || ny > boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y)) {
+    if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y)) {
         //We should print a big message saying "you loose!"
         //TODO
         init();
@@ -154,6 +154,16 @@ function getCursorPosition(e) {
     var dx = x - nx;
     var dy = y - ny;
     console.log("n=("+nx+", "+ny+"), c=("+x+", "+y+"), d=("+dx+", "+dy+")");
+
+    if (dir == "up" || dir == "down") {
+        if (dx < 0) dir = "left";
+        else dir = "right";
+    } else {
+        if (dy > 0) dir = "down";
+        else dir = "up";
+    }
+
+/*
     if (dx >= 0 && dy >= 0) {
         if (dx >= dy) {
             dir2 = "right";
@@ -189,6 +199,7 @@ function getCursorPosition(e) {
     else if (dir2 == "right" && snake[1].x <= snake[0].x) dir = dir2; 
 
     console.log("dir2=" + dir2 + ", dir=" + dir);
+*/
 }
 
 
