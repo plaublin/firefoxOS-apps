@@ -1,8 +1,7 @@
 /* Constants */
 var gameSpeed = 100; // the game state is updated every this value ms
 var snakeInitLength = 5; // initial size of the snake
-var boardWidth = 50;  // the size of the board is fixed. We adapt
-var boardHeight = 30; // the size of the cells when drawing it.
+var cellSize = 25; // the size of the cells is fixed. We adapt the size of the board
 
 
 /* Global variables */
@@ -13,6 +12,7 @@ var snake;
 var frog;
 var dir;
 var ateAFrog;
+
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -42,9 +42,12 @@ function createSnake() {
 
 
 function createFrog() {
+    var boardWidth = canvas.width / cellSize;
+    var boardHeight = canvas.height / cellSize;
+
     return {
-        x: Math.round(Math.random()*boardWidth), 
-        y: Math.round(Math.random()*boardHeight), 
+        x: Math.floor(Math.random()*boardWidth), 
+        y: Math.floor(Math.random()*boardHeight), 
     };
 }
 
@@ -52,8 +55,6 @@ function createFrog() {
 function drawStuff() {
     var width = canvas.width;
     var height = canvas.height;
-    var w = width / boardWidth; // cell width. Depends on the screen size
-    var h = height / boardHeight; // cell height. Depends on the screen size
 
     context.fillStyle = "white";
     context.fillRect(0, 0, width, height);
@@ -61,14 +62,14 @@ function drawStuff() {
     context.strokeRect(0, 0, width, height);
 
     // draw the snake
-    paintCell(snake[0].x, snake[0].y, w, h, "red");
+    paintCell(snake[0].x, snake[0].y, cellSize, cellSize, "red");
     for(var i = 1; i < snake.length; i++)
     {
-        paintCell(snake[i].x, snake[i].y, w, h, "#fdc77b");
+        paintCell(snake[i].x, snake[i].y, cellSize, cellSize, "#fdc77b");
     }
 
     // draw the frog
-    paintCell(frog.x, frog.y, w, h, "green");
+    paintCell(frog.x, frog.y, cellSize, cellSize, "green");
 
     // draw the score
     var score_text = "Score: " + score;
@@ -101,9 +102,10 @@ function advanceGame() {
     newHead.x = nx;
     newHead.y = ny;
     snake.unshift(newHead);
-    console.log("Snake.length="+snake.length);
 
     //check lose condition: hit an edge or eat itself
+    var boardWidth = canvas.width / cellSize;
+    var boardHeight = canvas.height / cellSize;
     if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y)) {
         //We should print a big message saying "you loose!"
         //TODO
@@ -116,7 +118,6 @@ function advanceGame() {
         ateAFrog = true;
         score++;
         frog = createFrog();
-        console.log("I ate a frog");
     } else {
         ateAFrog = false;
     }
@@ -142,15 +143,9 @@ function getCursorPosition(e) {
     x -= canvas.offsetLeft;
     y -= canvas.offsetTop;
 
-    // size of the canvas
-    var width = canvas.width;
-    var height = canvas.height;
-    var w = width / boardWidth; // cell width. Depends on the screen size
-    var h = height / boardHeight; // cell height. Depends on the screen size
-
     // we consider the head of the snake to be the point at the center of the head on the screen
-    var nx = (snake[0].x+0.5)*w; 
-    var ny = (snake[0].y+0.5)*h; 
+    var nx = (snake[0].x+0.5)*cellSize; 
+    var ny = (snake[0].y+0.5)*cellSize; 
     var dx = x - nx;
     var dy = y - ny;
 
