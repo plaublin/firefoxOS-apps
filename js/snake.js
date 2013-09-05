@@ -224,14 +224,14 @@ function doKeyDown(e) {
         return;
     }
 
-    if (e.keyCode == 38) { // up arrow
-        if (dir != "down") dir = "up";
-    } else if (e.keyCode == 37) { // left arrow
-        if (dir != "right") dir = "left";
-    } else if (e.keyCode == 40) { // down arrow
-        if (dir != "up") dir = "down";
-    } else if (e.keyCode == 39) { // right arrow
-        if (dir != "left") dir = "right";
+    if (e.keyCode == 38 && dir != "down") { // up arrow
+        dir = "up";
+    } else if (e.keyCode == 37 && dir != "right") { // left arrow
+        dir = "left";
+    } else if (e.keyCode == 40 && dir != "up") { // down arrow
+        dir = "down";
+    } else if (e.keyCode == 39 && dir != "left") { // right arrow
+        dir = "right";
     }
 }
 
