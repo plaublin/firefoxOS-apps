@@ -10,8 +10,10 @@ var context;
 var score;
 var snake;
 var frog;
+var mongoose;
 var dir;
 var ateAFrog;
+var ateAMongoose;
 
 
 function init() {
@@ -19,9 +21,11 @@ function init() {
     context = canvas.getContext('2d');
     score = 0;
     snake = createSnake();
-    frog = createFrog();
+    frog = createEntity();
+    mongoose = createEntity();
     dir = "right";
     ateAFrog = false;
+    ateAMongoose = false;
 
     if (typeof game_loop != "undefined") clearInterval(game_loop);
     game_loop = setInterval(advanceGame, gameSpeed);
@@ -41,7 +45,7 @@ function createSnake() {
 }
 
 
-function createFrog() {
+function createEntity() {
     var boardWidth = canvas.width / cellSize;
     var boardHeight = canvas.height / cellSize;
 
@@ -70,6 +74,9 @@ function drawStuff() {
 
     // draw the frog
     paintCell(frog.x, frog.y, cellSize, cellSize, "green");
+
+    // draw the mongoose
+    paintCell(mongoose.x, mongoose.y, cellSize, cellSize, "purple");
 
     // draw the score
     var score_text = "Score: " + score;
@@ -106,7 +113,7 @@ function advanceGame() {
     //check lose condition: hit an edge or eat itself
     var boardWidth = canvas.width / cellSize;
     var boardHeight = canvas.height / cellSize;
-    if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y)) {
+    if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y) || ateAMongoose) {
         //We should print a big message saying "you loose!"
         //TODO
         init();
@@ -117,9 +124,16 @@ function advanceGame() {
     if (snake[0].x == frog.x && snake[0].y == frog.y) {
         ateAFrog = true;
         score++;
-        frog = createFrog();
+        frog = createEntity();
+        mongoose = createEntity();
     } else {
         ateAFrog = false;
+    }
+
+    if (snake[0].x == mongoose.x && snake[0].y == mongoose.y) {
+        ateAMongoose = true;
+        frog = createEntity();
+        mongoose = createEntity();
     }
 
     drawStuff();
