@@ -7,11 +7,11 @@ The snake is in orange with a red head.
 The frog is in green. Eating a frog increases the score as well as the snake's length.
 There is an ennemy, the mongoose, in purple, which kills the snake when it eats it.
 
+The snake is controlled by the mouse / touchscreen, not by the keyboard.
+
 
 Todo
 ====
-
-* Add a special screen in case of a game over
 
 * Make it a Firefox OS application
 

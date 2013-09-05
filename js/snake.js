@@ -8,6 +8,8 @@ var cellSize = 25; // the size of the cells is fixed. We adapt the size of the b
 var canvas;
 var context;
 var score;
+var best_score = 0;
+var game_over;
 var snake;
 var frog;
 var mongoose;
@@ -20,6 +22,7 @@ function init() {
     canvas = document.getElementById('canvas');
     context = canvas.getContext('2d');
     score = 0;
+    game_over = false;
     snake = createSnake();
     frog = createEntity();
     mongoose = createEntity();
@@ -29,6 +32,10 @@ function init() {
 
     if (typeof game_loop != "undefined") clearInterval(game_loop);
     game_loop = setInterval(advanceGame, gameSpeed);
+}
+
+function game_over() {
+
 }
 
 init();
@@ -60,6 +67,8 @@ function drawStuff() {
     var width = canvas.width;
     var height = canvas.height;
 
+    context.font = "20px Georgia";
+
     context.fillStyle = "white";
     context.fillRect(0, 0, width, height);
     context.strokeStyle = "black";
@@ -82,6 +91,25 @@ function drawStuff() {
     var score_text = "Score: " + score;
     context.fillStyle = "blue";
     context.fillText(score_text, 5, height-5);
+
+    if (game_over) {
+        var go_w = width/3;
+        var go_h = height/3;
+        context.fillStyle = "white";
+        context.fillRect(go_w, go_h, go_w, go_h);
+        context.strokeStyle = "red";
+        context.strokeRect(go_w-3, go_h-3, go_w+6, go_h+6);
+        context.strokeRect(go_w, go_h, go_w, go_h);
+        
+        var msg = "You Lose!";
+        context.fillStyle = "red";
+        context.fillText(msg, go_w+go_w/2-context.measureText(msg).width/2, go_h+go_h/3);
+
+        best_score = Math.max(score, best_score);
+        msg = "Your score: " + score + ", best score:" + best_score;
+        context.fillStyle = "blue";
+        context.fillText(msg, go_w+go_w/2-context.measureText(msg).width/2, go_h+2*go_h/3);
+    }
 }
 
 
@@ -114,9 +142,13 @@ function advanceGame() {
     var boardWidth = canvas.width / cellSize;
     var boardHeight = canvas.height / cellSize;
     if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y) || ateAMongoose) {
-        //We should print a big message saying "you loose!"
-        //TODO
-        init();
+        if (!game_over) {
+            game_over = true;
+            drawStuff();
+            setTimeout(function() {
+                init();
+            }, 3000);
+        }
         return;
     }
 
