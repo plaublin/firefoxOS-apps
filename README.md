@@ -7,13 +7,7 @@ The snake is in orange with a red head.
 The frog is in green. Eating a frog increases the score as well as the snake's length.
 There is an ennemy, the mongoose, in purple, which kills the snake when it eats it.
 
-The snake is controlled by the mouse / touchscreen, not by the keyboard.
-
-
-Todo
-====
-
-* Make it a Firefox OS application
+The snake can be either controlled by the mouse / touchscreen or by the keyboard.
 
 
 Credits
@@ -25,4 +19,4 @@ Code inspired from [this tutorial](http://thecodeplayer.com/walkthrough/html5-ga
 Acknowledgements
 ================
 
-I am grateful to Blepers and Gaulgot for their helpful feedback.
+I am grateful to Blepers, Gaulgot and Maleas for their helpful feedback.

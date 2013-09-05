@@ -34,12 +34,9 @@ function init() {
     game_loop = setInterval(advanceGame, gameSpeed);
 }
 
-function game_over() {
-
-}
-
 init();
 canvas.addEventListener("click", getCursorPosition, false);
+document.addEventListener("keydown", doKeyDown, false);
 
 
 function createSnake() {
@@ -120,8 +117,21 @@ function paintCell(x, y, w, h, c) {
     context.strokeRect(x*w, y*h, w, h);
 }
 
+function snakeEatsItself() {
+    for (var i = 1; i < snake.length; i++) {
+        if (snake[0].x == snake[i].x && snake[0].y == snake[i].y) {
+            return true;
+        }
+    }
+    return false;
+}
+
 
 function advanceGame() {
+    if (game_over) {
+        return;
+    }
+
     //advance the snake
     var nx = snake[0].x;
     var ny = snake[0].y;
@@ -141,7 +151,7 @@ function advanceGame() {
     //check lose condition: hit an edge or eat itself
     var boardWidth = canvas.width / cellSize;
     var boardHeight = canvas.height / cellSize;
-    if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || (snake[0].x == snake[snake.length-1].x && snake[0].y == snake[snake.length-1].y) || ateAMongoose) {
+    if (nx < 0 || nx >= boardWidth || ny < 0 || ny >= boardHeight || snakeEatsItself() || ateAMongoose) {
         if (!game_over) {
             game_over = true;
             drawStuff();
@@ -176,6 +186,11 @@ function advanceGame() {
 function getCursorPosition(e) {
     var x;
     var y;
+
+    if (game_over) {
+        return;
+    }
+
     if (e.pageX || e.pageY) {
         x = e.pageX;
         y = e.pageY;
@@ -201,6 +216,22 @@ function getCursorPosition(e) {
     } else {
         if (dy > 0) dir = "down";
         else dir = "up";
+    }
+}
+
+function doKeyDown(e) {
+    if (game_over) {
+        return;
+    }
+
+    if (e.keyCode == 38) { // up arrow
+        if (dir != "down") dir = "up";
+    } else if (e.keyCode == 37) { // left arrow
+        if (dir != "right") dir = "left";
+    } else if (e.keyCode == 40) { // down arrow
+        if (dir != "up") dir = "down";
+    } else if (e.keyCode == 39) { // right arrow
+        if (dir != "left") dir = "right";
     }
 }
 
