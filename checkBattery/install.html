@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <p>Packaged app installation page</p>
+    <script>
+		var canInstall = !!(window.navigator.mozApps && window.navigator.mozApps.installPackage);
+		if (canInstall) {
+			var manifestURL = location.href.substring(0, location.href.lastIndexOf("/")) + "/manifest.webapp";
+			var installApp = window.navigator.mozApps.installPackage(manifestURL);
+      	installApp.onsuccess = function() {
+        		alert(this.result.origin);
+      	};
+      	installApp.onerror = function() {
+        		alert(this.error.name);
+      	};
+		}
+    </script>
+  </body>
+</html>
