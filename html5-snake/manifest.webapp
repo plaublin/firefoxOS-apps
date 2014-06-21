@@ -2,7 +2,7 @@
   "name": "HTML5-Snake",
   "description": "Snake using the html5 canvas property",
   "version": "1.0",
-  "launch_path": "snake.html",
+  "launch_path": "/snake.html",
   "developer": {
     "name": "schaars",
     "url": "https://github.com/schaars"

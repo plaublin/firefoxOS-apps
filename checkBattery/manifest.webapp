@@ -1,19 +1,19 @@
 {
-	"name": "ChkBatt",
-	"description": "This app allows you to check your battery levels!",
-   "package_path": "checkBattery.zip",
-	"version": "1.0",
-	"launch_path": "index.html",
-	"developer": {
+  "name": "ChkBatt",
+  "description": "This app allows you to check your battery levels!",
+  "package_path": "checkBattery.zip",
+  "version": "1.0",
+  "launch_path": "/index.html",
+  "developer": {
     "name": "schaars",
     "url": "https://github.com/schaars/checkBattery"
-	},
-	"icons": {
-		"16": "/images/icon16.png",
-		"32": "/images/icon32.png",
-		"48": "/images/icon48.png",
-		"64": "/images/icon64.png",
-		"128": "/images/icon128.png"
-	},
-	"default_locale": "en"
+  },
+  "icons": {
+    "16": "/images/icon16.png",
+    "32": "/images/icon32.png",
+    "48": "/images/icon48.png",
+    "64": "/images/icon64.png",
+    "128": "/images/icon128.png"
+  },
+  "default_locale": "en"
 }
