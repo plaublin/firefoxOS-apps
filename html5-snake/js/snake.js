@@ -30,6 +30,10 @@ function init() {
     ateAFrog = false;
     ateAMongoose = false;
 
+    if(typeof(Storage) !== "undefined") {
+       best_score = Number(localStorage.getItem("best_score")); 
+    }
+
     if (typeof game_loop != "undefined") clearInterval(game_loop);
     game_loop = setInterval(advanceGame, gameSpeed);
 }
@@ -106,6 +110,10 @@ function drawStuff() {
         msg = "Your score: " + score + ", best score:" + best_score;
         context.fillStyle = "blue";
         context.fillText(msg, go_w+go_w/2-context.measureText(msg).width/2, go_h+2*go_h/3);
+
+        if(typeof(Storage) !== "undefined") {
+           localStorage.setItem("best_score", String(best_score));
+        }
     }
 }
 
